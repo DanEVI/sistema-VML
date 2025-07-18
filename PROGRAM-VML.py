@@ -69,7 +69,8 @@ class Reserva(ReservaBase):
         h_inicio = datetime.strptime(self.__hora_inicio, fmt)
         h_fin = datetime.strptime(self.__hora_fin, fmt)
         duracion = h_fin - h_inicio
-        return duracion
+        horas = duracion.seconds // 3600
+        return f"{horas} horas"
 
     def get_usuario(self):
         return self.__usuario
@@ -221,7 +222,8 @@ def main():
             reservas = sistema.mis_reservas()
             if reservas:
                 for r in reservas:
-                    print(r)
+                    duracion = r.calcular_duracion()
+                    print(f"{r} | Duración: {duracion}")
             else:
                 print("No tienes reservas activas.")
         elif opcion == "3":
